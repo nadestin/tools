@@ -7,7 +7,7 @@
   <name>m2cachecleanup Maven Plugin</name>
   <version>1.0.0</version>
   <description>Plugin to purge outdated timestamped snapshot artifacts from the local maven cache</description>
-  <url>https://github.com/nadestin/tools</url>
+  <url>https://github.com/nadestin/tools/wiki/Maven-Cache-Cleanup-Utility</url>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -17,7 +17,7 @@
   </licenses>
   <scm>
   	<url>https://github.com/nadestin/tools.git</url>
-  	<connection>https://github.com/nadestin/tools.git</connection>
+  	<connection>https://github.com/nadestin/tools/tree/master/m2cachecleanup</connection>
   	<developerConnection>Yuri Nadestin</developerConnection>
   </scm>
   <developers>
