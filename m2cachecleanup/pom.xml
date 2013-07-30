@@ -6,6 +6,11 @@
 	<packaging>maven-plugin</packaging>
 	<name>m2cachecleanup Maven Plugin</name>
 	<version>1.0.1</version>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<description>Plugin to purge outdated timestamped snapshot artifacts from the local maven cache</description>
 	<url>https://github.com/nadestin/tools/wiki/Maven-Cache-Cleanup-Utility</url>
 	<licenses>
@@ -18,7 +23,7 @@
 	<scm>
 		<url>https://github.com/nadestin/tools.git</url>
 		<connection>https://github.com/nadestin/tools/tree/master/m2cachecleanup</connection>
-		<developerConnection>Yuri Nadestin</developerConnection>
+		<developerConnection>https://github.com/nadestin/tools/tree/master/m2cachecleanup</developerConnection>
 	</scm>
 	<developers>
 		<developer>
