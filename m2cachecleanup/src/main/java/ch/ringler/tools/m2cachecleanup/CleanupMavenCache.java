@@ -64,15 +64,7 @@ public class CleanupMavenCache extends AbstractMojo {
 
 	private boolean isValidCache(File cacheDir) throws IOException {
 
-		// Cache directory usually contain file "repository.xml"
-	    File repXml = new File(cacheDir, "repository.xml");
-	    
-	    if(!repXml.exists())
-	    {
-	    	getLog().warn("Directory '" + cacheDir.getCanonicalPath() + "' does not look like maven cache");
-	    }
-	    
-	    // TODO Implement more advanced test
+	    // TODO Implement tests that cacheDir is really maven cache directory. At the moment I have no any particular rules for that.
 	    
 	    return true;
 	}

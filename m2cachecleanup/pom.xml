@@ -5,7 +5,7 @@
 	<artifactId>m2cachecleanup</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>m2cachecleanup Maven Plugin</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>Plugin to purge outdated timestamped snapshot artifacts from the local maven cache</description>
 	<url>https://github.com/nadestin/tools/wiki/Maven-Cache-Cleanup-Utility</url>
 	<licenses>
