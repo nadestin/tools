@@ -83,12 +83,12 @@ public class Launcher
   {
     // Cache directory should contain file "repository.xml"
     
-    File repXml = new File(cacheDir, "repository.xml");
-    
-    if(!repXml.exists())
-    {
-      System.err.println("Directory '" + cacheDir.getCanonicalPath() + "' does not look like maven cache");
-    }
+//    File repXml = new File(cacheDir, "repository.xml");
+//    
+//    if(!repXml.exists())
+//    {
+//      System.err.println("Directory '" + cacheDir.getCanonicalPath() + "' does not look like maven cache");
+//    }
     
     // TODO Implement more advanced test
     
