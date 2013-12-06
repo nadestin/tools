@@ -30,7 +30,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * Maven cache
  * 
  */
-@Mojo(name = "cleanup-cache", defaultPhase = LifecyclePhase.CLEAN)
+@Mojo(name = "cleanup-cache", defaultPhase = LifecyclePhase.CLEAN, requiresProject = false)
 public class CleanupMavenCache extends AbstractMojo {
 	/**
 	 * Location of the file.
