@@ -71,18 +71,18 @@ public class CleanupMavenCache extends AbstractMojo {
 	
 	  private static long KB = 1024L;
 	  private static long MB = KB * 1024L;
-	  private static long TB = MB * 1024L;
+	  private static long GB = MB * 1024L;
 	  
 	  private String getHrSize(long reclaimedSpace)
 	  {
 	    String unit = "Byte(s)";
 	    double value = (double) reclaimedSpace;
 	    
-	    // Convert Size in Bytes to more human readable form Kb, Mb, Tb.
-	    if(reclaimedSpace >= TB)
+	    // Convert Size in Bytes to more human readable form Kb, Mb, Gb.
+	    if(reclaimedSpace >= GB)
 	    {
-	      value = value / (double) TB;
-	      unit = "TB";
+	      value = value / (double) GB;
+	      unit = "GB";
 	    }
 	    else if(reclaimedSpace >= MB)
 	    {
