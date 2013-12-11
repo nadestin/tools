@@ -5,7 +5,7 @@
 	<artifactId>m2cachecleanup</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>m2cachecleanup Maven Plugin</name>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
