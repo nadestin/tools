@@ -18,12 +18,14 @@ import org.apache.maven.plugin.logging.Log;
  *
  */
 public class CacheWalker {
-	private static final Pattern VERSION_PATTERN = Pattern
-			.compile("(\\d+)(\\.)?(\\d+)?(\\.)?(.+)?(\\-)?(.+)?");
+	private static final String VERSION_PATTERN_PREFIX = "(\\d+)(\\.)?(\\d+)?(\\.)?(.+)?";
+    private static final String VERSION_PATTERN_SUFFIX = "(\\-)?(.+)?";
+    private static final Pattern VERSION_PATTERN = Pattern.compile("(" + VERSION_PATTERN_PREFIX + VERSION_PATTERN_SUFFIX + ")");
 	private static final Pattern SNAPSHOT_VERSION_PATTERN = Pattern
 			.compile("(\\d{8})\\.(\\d{6})\\-(\\d+)(.+)");
 	private static final String SNAPSHOT_SUFFIX = "-SNAPSHOT";
 	private static final int SNAPSHOT_LEN = "SNAPSHOT".length();
+    private static final String VERSION_STRING_DELIMITER = ",";
 
 	private long m_deleted;
 	private long m_failedToDelete;
@@ -31,14 +33,21 @@ public class CacheWalker {
 
 	private final Log m_log;
 
+    private Pattern m_versionPattern = null;
+
 	CacheWalker(Log log) {
-		m_log = log;
-		m_deleted = 0L;
-		m_reclaimedSpace = 0L;
-		m_failedToDelete = 0L;
+		this(log, null);
 	}
 
-	/**
+    CacheWalker(Log log, String versionString) {
+        m_log = log;
+        m_deleted = 0L;
+        m_reclaimedSpace = 0L;
+        m_failedToDelete = 0L;
+        processVersionString(versionString);
+    }
+
+    /**
 	 * @return NUmber of deleted files
 	 */
 	public long getDeleted() {
@@ -60,9 +69,9 @@ public class CacheWalker {
 	}
 
 	public void processDirectory(File cacheDir) {
+        Pattern versionPattern = m_versionPattern != null ? m_versionPattern : VERSION_PATTERN;
 		// Search Versions sub-dirs first.
-		File[] versions = cacheDir.listFiles(new DirPatternFilter(
-				VERSION_PATTERN, false));
+		File[] versions = cacheDir.listFiles(new DirPatternFilter(versionPattern, false));
 
 		for (File versionDir : versions) {
 			if (versionDir.getName().endsWith(SNAPSHOT_SUFFIX)) // Only process
@@ -75,7 +84,7 @@ public class CacheWalker {
 
 		// Recursively search all sub-dirs which are not Versions
 		File[] subdirs = cacheDir.listFiles(new DirPatternFilter(
-				VERSION_PATTERN, true));
+				versionPattern, true));
 
 		for (File subdir : subdirs) {
 			processDirectory(subdir);
@@ -168,6 +177,20 @@ public class CacheWalker {
 		// No versions in set, return null
 		return null;
 	}
+
+    private void processVersionString(String versionString) {
+        if(versionString != null && !versionString.isEmpty()) {
+            StringBuilder versions = new StringBuilder();
+            for(String str : versionString.split(VERSION_STRING_DELIMITER)) {
+                versions.append(decorateVersionString(str)).append("|");
+            }
+            m_versionPattern = Pattern.compile("((" + versions.toString() + decorateVersionString(VERSION_PATTERN_PREFIX) + ")" + VERSION_PATTERN_SUFFIX  + ")");
+        }
+    }
+
+    private String decorateVersionString(String versionString) {
+        return "(" + versionString + ")";
+    }
 
 	private static final class DirPatternFilter implements FileFilter {
 		private final Pattern m_pattern;

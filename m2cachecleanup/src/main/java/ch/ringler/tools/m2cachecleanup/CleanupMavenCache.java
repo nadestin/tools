@@ -38,6 +38,12 @@ public class CleanupMavenCache extends AbstractMojo {
 	@Parameter(defaultValue = "${settings.localRepository}", property = "directory", required = true)
 	private File directory;
 
+    /**
+     * Version string - allows for configuring the plugin to recognize non-numeric based artifact versions(i.e. trunk, main etc...)
+     */
+    @Parameter(defaultValue = "", property = "versionString", required = false)
+    private String versionString;
+
 	public void execute() throws MojoExecutionException {
 		
 	    try {
@@ -46,8 +52,12 @@ public class CleanupMavenCache extends AbstractMojo {
 			//
 			if(!isValidCache(directory)) throw new MojoExecutionException("Directory '" + directory.getCanonicalPath() + "' is not a maven cache");
 			
-			CacheWalker walker = new CacheWalker(getLog());
+			CacheWalker walker = new CacheWalker(getLog(), versionString);
 			getLog().info("Cleaning Maven local cache at '" + directory.getCanonicalPath() + "'");
+            if(null != versionString && !versionString.isEmpty())
+            {
+                getLog().info("Version pattern overridden to also include the following version prefixes: [" + versionString + "]");
+            }
 			walker.processDirectory(directory);
 			
 			// Print statistics
