@@ -9,8 +9,10 @@ import java.io.IOException;
 public class Launcher
 {
   private static final String OPT_DIR = "-dir";
+  private static final String OPT_VERBOSE = "-v";
   
   private File m_baseDir;
+  private boolean m_verbose;
   
   private Launcher()
   {
@@ -69,6 +71,11 @@ public class Launcher
           m_baseDir = tmp;
           continue;
         }
+        else if (OPT_VERBOSE.equals(key))
+        {
+          m_verbose = true;
+          continue;
+        }
         
         // Option is unknown, print error message and exit
         System.err.println("Argument '" + key + "' is not a valid option.");
@@ -104,7 +111,7 @@ public class Launcher
     //
     if(!isValidCache(m_baseDir)) return 3;
     
-    CacheWalker walker = new CacheWalker();
+    CacheWalker walker = new CacheWalker(m_verbose);
     System.out.println("Cleaning Maven local cache at '" + m_baseDir.getCanonicalPath() + "'");
     int retval = walker.processDirectory(m_baseDir);
     

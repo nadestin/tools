@@ -25,12 +25,14 @@ public class CacheWalker
   private long m_deleted;
   private long m_failedToDelete;
   private long m_reclaimedSpace;
+  private boolean m_verbose;
   
-  CacheWalker()
+  CacheWalker(boolean verbose)
   {
     m_deleted = 0L;
     m_reclaimedSpace = 0L;
     m_failedToDelete = 0L;
+    m_verbose = verbose;
   }
   
   /**
@@ -115,6 +117,10 @@ public class CacheWalker
           
           if(file.delete())
           {
+            if (m_verbose)
+            {
+              System.out.println("Removed " + file.getAbsolutePath());
+            }
             m_deleted++;
             m_reclaimedSpace += fileSize;
           }
