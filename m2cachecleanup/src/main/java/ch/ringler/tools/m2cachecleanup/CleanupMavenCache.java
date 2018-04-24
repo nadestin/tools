@@ -61,7 +61,7 @@ public class CleanupMavenCache extends AbstractMojo {
 			walker.processDirectory(directory);
 			
 			// Print statistics
-			getLog().info("Totally deleted " + walker.getDeleted() + " file(s).");
+			getLog().info("Total deleted " + walker.getDeleted() + " file(s).");
 			getLog().info("Reclaimed space " + getHrSize(walker.getReclaimedSpace()));
 			if(walker.getFailedToDelete() > 0)
 			{
